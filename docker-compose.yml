@@ -1,0 +1,35 @@
+version: "3"
+services:
+  api.ancine.gov.br:
+    build:
+      context: ./sim-dev-frontend
+      # args: 
+        # - SRC_GIT_REPO=http://gitlab.ancine.gov.br/ancine/
+        # - SRC_GIT_BRANCH=feature/back-Atualiza-dependencias-para-eap6.4.16-bpms6.4.4    
+    image: ancine/sim-dev-frontend:latest
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    environment:
+      - SSO_AUTH_SERVER_URL=http://sso.ancine.gov.br:8180/auth  
+      - KIE_SERVER_URL=http://localhost:8080/kie-server/services/rest/server
+      - MODALIDADE_INCENTIVOS_URL=http://localhost:8080/sanfom-servicos/modalidadeIncentivo
+    links:
+      - sso.ancine.gov.br
+    depends_on:
+      - sso.ancine.gov.br
+    volumes:
+      - ./src:/opt/jboss/src
+      - ./data/configuration/standalone.xml:/opt/jboss/eap/standalone/configuration/standalone.xml
+      - ./data/datasources/:/opt/jboss/data
+      - ./data/logs/sim:/opt/jboss/eap/standalone/log
+      - ~/.m2:/opt/jboss/.m2
+
+  sso.ancine.gov.br:
+    image: ancine/rh_sso:latest
+    ports:
+      - "8180:8180"
+    volumes:
+      - ./data/logs/sso:/opt/jboss/rh-sso-7.1/standalone/log
+      - ./data/configuration/ancine-realm.json:/opt/jboss/ancine-realm.json
+    command: ["/opt/jboss/start.sh","-Djboss.socket.binding.port-offset=100"]

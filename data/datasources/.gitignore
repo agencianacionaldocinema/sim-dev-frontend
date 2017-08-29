@@ -1,0 +1,3 @@
+*.lock.db
+*.trace.db
+kieserver*
