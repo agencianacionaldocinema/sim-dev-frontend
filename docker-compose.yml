@@ -20,9 +20,9 @@ services:
       - sso.ancine.gov.br
     volumes:
       - ./src:/opt/jboss/src
-      - ./data/configuration/standalone.xml:/opt/jboss/eap/standalone/configuration/standalone.xml
+      - ./data/configuration/standalone.xml:/opt/jboss/jboss/standalone/configuration/standalone.xml
       - ./data/datasources/:/opt/jboss/data
-      - ./data/logs/sim:/opt/jboss/eap/standalone/log
+      - ./data/logs/sim:/opt/jboss/jboss/standalone/log
       - ~/.m2:/opt/jboss/.m2
 
   sso.ancine.gov.br:

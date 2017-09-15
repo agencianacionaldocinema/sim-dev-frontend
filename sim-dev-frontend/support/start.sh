@@ -6,4 +6,4 @@ mvn install -DskipTests -f $SRC_BUILD_DIR/sin-bpm/pom.xml \
 
 /opt/jboss/create-sim-kieserver-container.sh &
 
-/opt/jboss/eap/bin/standalone.sh -c standalone.xml -b 0.0.0.0 -bmanagement 0.0.0.0 
+$JBOSS_HOME/bin/standalone.sh -c standalone.xml -b 0.0.0.0 -bmanagement 0.0.0.0 

@@ -50,7 +50,7 @@ TOTAL_WAIT=0
 
 until [ $TOTAL_WAIT -gt $MAX_WAIT ]
 do
-    if $EAP_HOME/bin/jboss-cli.sh -c --command="deployment-info --name=kie-server.war" | grep -q "OK"
+    if $JBOSS_HOME/bin/jboss-cli.sh -c --command="deployment-info --name=kie-server.war" | grep -q "OK"
     then 
         curl -X POST -u 'kiecontrolleruser:kiecontrolleruser1!' -H 'Content-type: application/json' -H 'X-KIE-ContentType: JSON' --data "$REQUEST_BODY" 'http://localhost:8080/kie-server/services/rest/server/config'
         break
